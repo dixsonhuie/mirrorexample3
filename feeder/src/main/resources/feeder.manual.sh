@@ -1,9 +1,9 @@
 
-export GIGA_15="/home/dixson/work/ie/gigaspaces-insightedge-enterprise-15.0.0"
+export GIGA_15="/home/jay/work/gigaspace/gigaspaces-insightedge-enterprise-15.0.0"
 
-export CLASSES_DIR="/home/dixson/work/proj14/mirror-example/feeder/target/classes"
+export CLASSES_DIR="/home/jay/work/gigaspace/mirrorexample3/feeder/target/classes"
 
-export MODEL_DIR="/home/dixson/work/proj14/mirror-example/common/target/classes"
+export MODEL_DIR="/home/jay/work/gigaspace/mirrorexample3/common/target/classes"
 
 export CLASSPATH=$GIGA_15/lib/required/*
 
