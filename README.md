@@ -45,9 +45,20 @@ export GS_MANAGER_SERVERS="localhost"
 
 5)Deployment
 
-SLA for space deployment should be overridden, 2 partitions w/ 1 backup
+You will need to run mvn clean package at the project parent.
 
+This will create space/target/space.jar and mirror/target/mirror.jar files. You will need to deploy those in XAP.
 
+To deploy, you can use the webui or the command line.
 
+From command line:
+The SLA for the space deployment should be overridden. It should be 2,1.
+For space:
+./gs.sh pu deploy --partitions=2 --ha <pu name> <path to space.jar>
 
+For mirror:
+The mirror is stateless. You don't need to specify any instances (partitions) or backups.
+./gs.sh pu deploy <pu name> <path to mirror.jar>
+
+6) You can run the feeder to write objects to the space. They will be replicated to the database
 
