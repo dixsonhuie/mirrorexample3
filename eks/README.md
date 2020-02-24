@@ -43,6 +43,12 @@ To connect to your database from outside the cluster execute the following comma
 
 Postgres password = SmVMcea3OY
 
+# Update the jar file
+Modify the dburl of the database in the properties file. The properties file for the mirror pu can be found here: <git proj dir>/mirror/src/main/resources/pu.properties
+
+The properties file for the space pu can be found here:
+<git proj dir>/space/src/main/resources/pu.properties
+
 # connect to db (creates a temporary client pod)
 kubectl run terrifying-hydra-postgresql-client --rm --tty -i --restart='Never' --namespace gigaspaces-central-ns --image docker.io/bitnami/postgresql:11.6.0-debian-9-r0 --env="PGPASSWORD=$POSTGRES_PASSWORD" --command -- psql --host terrifying-hydra-postgresql -U postgres -d postgres -p 5432
 
