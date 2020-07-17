@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="propertiesConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="properties">
+            <props>
+                <prop key="db.url">jdbc:postgresql://localhost/mydb</prop>
+                <prop key="db.username">scott</prop>
+                <prop key="db.password">tiger</prop>
+                <prop key="hbm2ddl.auto">update</prop>
+                <prop key="hibernateDebug">false</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--
+        A JDBC datasource pool that connects to HSQL.
+    -->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" >
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+    </bean>
+
+    <!--
+        Hibernate SessionFactory bean. Uses the pooled data source to connect to the database.
+    -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--
+        <property name="annotatedClasses">
+            <list>
+                <value>com.gigaspaces.demo.common.Data</value>
+            </list>
+        </property>
+        -->
+        <property name="packagesToScan" value="com.gigaspaces.demo"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL94Dialect</prop>
+                <prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
+                <prop key="hibernate.cache.use_second_level_cache">false</prop>
+                <prop key="hibernate.cache.use_query_cache">false</prop>
+                <prop key="hibernate.show_sql">${hibernateDebug}</prop>
+                <prop key="hibernate.format_sql">${hibernateDebug}</prop>
+                <prop key="hibernate.use_sql_comments">${hibernateDebug}</prop>
+                <prop key="hibernate.hbm2ddl.auto">${hbm2ddl.auto}</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <bean id="txManager"
+          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+</beans>
