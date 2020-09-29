@@ -62,3 +62,6 @@ The mirror is stateless. You don't need to specify any instances (partitions) or
 
 6) You can run the feeder to write objects to the space. They will be replicated to the database
 
+Note 1: To view hibernate logging, one way to see them is to save the output of the console to the gs.sh host run-agent command.
+
+
